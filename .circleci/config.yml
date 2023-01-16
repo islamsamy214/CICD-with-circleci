@@ -1,8 +1,4 @@
 version: 2.1
-orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
-  # Orchestrate or schedule a set of jobs
 jobs:
   say-hello:
     docker:
@@ -20,6 +16,13 @@ jobs:
       - run:
           name: "Say world"
           command: "echo World!"
+  print-var-value:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+        name: "print 'test' from the env file in the project"
+        command: echo ${TEST_VAR}
 workflows:
   say-hello-workflow:
     jobs:
@@ -27,3 +30,4 @@ workflows:
       - say-world:
           requires:
             - say-hello
+      - print-var-value

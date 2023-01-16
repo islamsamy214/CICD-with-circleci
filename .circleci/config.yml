@@ -24,6 +24,28 @@ jobs:
       - run:
           name: "print 'test' from the env file in the project"
           command: "echo ${TEST_VAR}"
+  save-hello-world-output:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - output.txt
+      - run:
+          name: "add 'hello world' to a file called output.txt"
+          command: "echo 'hello world' > output.txt"
+  print-output-file:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: workspace
+      - run:
+          name: "output 'hello world' to a file called output.txt"
+          command: "cat output.txt"
 workflows:
   say-hello-workflow:
     jobs:
@@ -32,3 +54,7 @@ workflows:
           requires:
             - say-hello
       - print-var-value
+      - save-hello-world-output
+      - print-output-file:
+          requires:
+            - save-hello-world-output

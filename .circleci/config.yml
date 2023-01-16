@@ -30,7 +30,7 @@ jobs:
     steps:
       - checkout
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~/
           paths:
             - output.txt
       - run:
@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: ~/
       - run:
           name: "output 'hello world' to a file called output.txt"
           command: "cat output.txt"

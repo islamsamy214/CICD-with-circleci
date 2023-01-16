@@ -22,7 +22,7 @@ jobs:
     steps:
       - run:
         name: "print 'test' from the env file in the project"
-        command: echo ${TEST_VAR}
+        command: "echo ${TEST_VAR}"
 workflows:
   say-hello-workflow:
     jobs:

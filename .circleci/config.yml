@@ -71,11 +71,10 @@ jobs:
     <<: *defaults
     steps:
       - run:
-        command: "return 1"
-        
+          command: "return 1"
       - run:
-        command: "echo 'it is what it is'"
-        when: on_fail
+          command: "echo 'this is a rollback for the privous run'"
+          when: on_fail
 workflows:
   say-hello-workflow:
     jobs:

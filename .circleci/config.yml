@@ -67,6 +67,15 @@ jobs:
     steps:
       - greeting:
           catch-phrase: "$CIRCLE_WORKFLOW_ID"
+  step-failing:
+    <<: *defaults
+    steps:
+      - run:
+        command: "return 1"
+        
+      - run:
+        command: "echo 'it is what it is'"
+        when: on_fail
 workflows:
   say-hello-workflow:
     jobs:
@@ -80,3 +89,4 @@ workflows:
           requires:
             - save-hello-world-output
       - say-hello-habibi-from-the-command
+      - step-failing

@@ -1,4 +1,10 @@
 version: 2.1
+
+defaults: &defaults # a reusable aliases
+  working_directory: ~/
+  docker:
+    - image: circleci/node:13.8.0
+
 commands: # a reusable command with parameters
   greeting:
     parameters:
@@ -7,6 +13,7 @@ commands: # a reusable command with parameters
         type: string
     steps:
       - run: echo "Hello <<parameters.catch-phrase>>"
+
 jobs:
   say-hello:
     docker:
@@ -55,8 +62,8 @@ jobs:
           name: "output 'hello world' to a file called output.txt"
           command: "cat ~/output.txt"
   say-hello-habibi-from-the-command:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
+    # its okay to use it normally without aliases
     steps:
       - greeting:
           catch-phrase: "7bibi"

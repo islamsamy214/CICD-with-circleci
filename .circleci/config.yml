@@ -1,4 +1,12 @@
 version: 2.1
+commands: # a reusable command with parameters
+  greeting:
+    parameters:
+      to:
+        default: "world"
+        type: string
+    steps:
+      - run: echo "Hello <<parameters.to>>"
 jobs:
   say-hello:
     docker:
@@ -46,6 +54,12 @@ jobs:
       - run:
           name: "output 'hello world' to a file called output.txt"
           command: "cat ~/output.txt"
+  say-hello-habibi-from-the-command:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - greeting:
+          to: "7bibi"
 workflows:
   say-hello-workflow:
     jobs:
@@ -58,3 +72,4 @@ workflows:
       - print-output-file:
           requires:
             - save-hello-world-output
+      - say-hello-habibi-from-the-command

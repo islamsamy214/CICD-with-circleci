@@ -67,14 +67,14 @@ jobs:
     steps:
       - greeting:
           catch-phrase: "$CIRCLE_WORKFLOW_ID"
-  step-failing:
-    <<: *defaults
-    steps:
-      - run:
-          command: "return 1"
-      - run:
-          command: "echo 'this is a rollback for the privous run'"
-          when: on_fail
+  # step-failing:
+  #   <<: *defaults
+  #   steps:
+  #     - run:
+  #         command: "return 1"
+  #     - run:
+  #         command: "echo 'this is a rollback for the privous run'"
+  #         when: on_fail
 workflows:
   say-hello-workflow:
     jobs:
@@ -88,4 +88,4 @@ workflows:
           requires:
             - save-hello-world-output
       - say-hello-habibi-from-the-command
-      - step-failing
+      # - step-failing

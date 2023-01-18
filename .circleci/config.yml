@@ -2,11 +2,11 @@ version: 2.1
 commands: # a reusable command with parameters
   greeting:
     parameters:
-      to:
+      catch-phrase:
         default: "world"
         type: string
     steps:
-      - run: echo "Hello <<parameters.to>>"
+      - run: echo "Hello <<parameters.catch-phrase>>"
 jobs:
   say-hello:
     docker:
@@ -59,7 +59,7 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - greeting:
-          to: "7bibi"
+          catch-phrase: "7bibi"
 workflows:
   say-hello-workflow:
     jobs:
